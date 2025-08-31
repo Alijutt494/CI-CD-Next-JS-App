@@ -10,7 +10,7 @@ pipeline{
             }
             stage('test'){
             steps{
-                echo 'testing the project...'
+                echo 'testing the first cicd project...'
             }
             stage('build'){
             steps{
