@@ -1,2 +1,28 @@
 pipeline{
-  
+    agent any
+    environment {
+        VERCEL_TOKEN = credentials('VERCEL_TOKEN')
+}
+    stages{
+        stage('install'){
+            steps{
+                bat 'npm install'
+            }
+            stage('test'){
+            steps{
+                echo 'testing the project...'
+            }
+            stage('build'){
+            steps{
+                bat 'npm run build'
+            }
+            stage('deploy'){
+                steps{
+                    bat 'npx vercel --prod --token --yes --token=$VERCEL_TOKEN'
+                }
+            }
+            }
+            }
+        }
+    }      
+}
