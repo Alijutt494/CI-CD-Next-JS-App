@@ -1,28 +1,26 @@
-pipeline{
-    agent any
-    environment {
-        VERCEL_TOKEN = credentials('VERCEL_TOKEN')
-}
-    stages{
-        stage('install'){
-            steps{
-                bat 'npm install'
-            }
-            stage('test'){
-            steps{
-                echo 'testing the first cicd project...'
-            }
-            stage('build'){
-            steps{
-                bat 'npm run build'
-            }
-            stage('deploy'){
-                steps{
-                    bat 'npx vercel --prod --token --yes --token=$VERCEL_TOKEN'
-                }
-            }
-            }
-            }
-        }
-    }      
+pipeline {
+  agent any
+
+  stages {
+    stage('install') {
+      steps {
+        // your actual steps here, e.g.:
+        sh 'npm install'
+      }
+    }
+
+    stage('build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
+    // more stages...
+  }
+
+  post {
+    always {
+      echo 'Cleaning up!'
+    }
+  }
 }
